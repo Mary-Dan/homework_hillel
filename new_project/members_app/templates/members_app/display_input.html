@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Input</title>
+</head>
+<body>
+    <h1>Display Input</h1>
+    <p>User Input: {{ user_input }}</p>
+</body>
+</html>
