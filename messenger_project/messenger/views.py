@@ -4,12 +4,24 @@ from django.contrib.auth.decorators import login_required
 from .models import Chat, Message, User
 from .forms import ChatForm, MessageForm, AddUserForm, EditMessageForm, DeleteMessageForm, DeleteUserForm
 from django.contrib.auth.models import User
+from django.views.generic import View
+from .mixins import AuthenticationMixin, AuthorizationMixin, ObjectFetchingMixin
 
 
-@login_required
-def chats(request):
-    chats = request.user.chats.all()
-    return render(request, 'messenger/chats.html', {'chats': chats})
+class ChatsView(View, AuthenticationMixin, AuthorizationMixin, ObjectFetchingMixin):
+    def get(self, request):
+        # Перевіряємо аутентифікацію користувача
+        if not self.request.user.is_authenticated:
+            return self.handle_no_authentication()
+        # Отримуємо список чатів
+        chats = self.get_user_chats(request.user)
+        return render(request, 'messenger/chats.html', {'chats': chats})
+
+    def get_user_chats(self, user):
+        pass
+
+    def handle_no_authentication(self):
+        pass
 
 
 @login_required

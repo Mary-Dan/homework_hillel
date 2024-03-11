@@ -20,7 +20,7 @@ from messenger_project.messenger.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', chats, name='chats'),
+    path('messenger/', include('messenger.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('messenger/', include('messenger.urls')),
 ]

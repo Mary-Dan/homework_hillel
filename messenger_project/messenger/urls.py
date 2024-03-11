@@ -3,7 +3,7 @@ from messenger_project.messenger import views
 
 urlpatterns = [
     path('', views.chats, name='chats'),
-    path('chat/<int:chat_id>/', views.chat, name='chat'),
+    path('chats/', ChatsView.as_view(), name='chats'),
     path('create_chat/', views.create_chat, name='create_chat'),
     path('chat/<int:chat_id>/add_user/', views.add_user, name='add_user'),
     path('message/<int:message_id>/edit/', views.edit_message, name='edit_message'),
