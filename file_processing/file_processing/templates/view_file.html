@@ -1,0 +1,11 @@
+<h1>{{ file.name }}</h1>
+
+{% if editable %}
+<form method="post">
+    {% csrf_token %}
+    <textarea name="content" rows="10" cols="50">{{ file.file.read }}</textarea><br>
+    <button type="submit">Save</button>
+</form>
+{% else %}
+<p>File type not supported for editing.</p>
+{% endif %}
