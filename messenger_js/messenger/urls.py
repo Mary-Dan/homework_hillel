@@ -1,5 +1,5 @@
 from django.urls import path
-from messenger_project.messenger import views
+from messenger_js.messenger import views
 
 urlpatterns = [
     path('', views.chats, name='chats'),
