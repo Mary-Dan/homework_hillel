@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from messenger_project.messenger.models import Message
+from messenger_js.messenger.models import Message
 
 
 class IsAuthorOrSuperuser(permissions.BasePermission):
