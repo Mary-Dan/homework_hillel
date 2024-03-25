@@ -4,6 +4,21 @@ from django.contrib.auth.decorators import login_required
 from .models import Chat, Message, User
 from .forms import ChatForm, MessageForm, AddUserForm, EditMessageForm, DeleteMessageForm, DeleteUserForm
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+
+
+def get_user_status(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        if user_id:
+            try:
+                user = User.objects.get(id=user_id)
+                user_status = {'status': 'online' if user.is_online() else 'offline'}
+                return JsonResponse(user_status)
+            except User.DoesNotExist:
+                return JsonResponse({'error': 'User not found'}, status=404)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 
 @login_required

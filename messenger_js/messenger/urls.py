@@ -8,5 +8,6 @@ urlpatterns = [
     path('chat/<int:chat_id>/add_user/', views.add_user, name='add_user'),
     path('message/<int:message_id>/edit/', views.edit_message, name='edit_message'),
     path('message/<int:message_id>/delete/', views.delete_message, name='delete_message'),
-    path('chat/<int:chat_id>/delete_user/<int:user_id>/', views.delete_user, name='delete_user')
+    path('chat/<int:chat_id>/delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('get_user_status/', views.get_user_status, name='get_user_status')
 ]
