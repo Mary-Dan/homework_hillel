@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: messenger_db
+      POSTGRES_USER: messenger_user
+      POSTGRES_PASSWORD: messenger_password
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:9000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://messenger_user:messenger_password@db/messenger_db
+      - DJANGO_ALLOWED_HOSTS=127.0.0.1
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:9000"
+
+  celery_worker:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://messenger_user:messenger_password@db/messenger_db
+    command: bash -c "celery -A messenger worker --loglevel=INFO"
+
+  celery_beat:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://messenger_user:messenger_password@db/messenger_db
+    command: bash -c "celery -A messenger beat --loglevel=INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+
