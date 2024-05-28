@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - SECRET_KEY=django-insecure-g(ok(%1d1g0rabd!th1$$_s382$vvyi7x696p#@m@@191%4nhq
+      - DB_NAME=consultation_db
+      - DB_USER=consultation_user
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_PORT=5432
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=consultation_db
+      - POSTGRES_USER=consultation_user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:

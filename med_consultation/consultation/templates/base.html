@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Онлайн-платформа для организации медицинских консультаций">
+    <meta name="keywords" content="онлайн-консультации, медицинские учреждения">
+    <meta name="author" content="Медицинские консультации онлайн">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Website{% endblock %}</title>
+    <!-- Ссылки на стили CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Header</h1>
+    <!-- Навигационное меню -->
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <!-- Другие пункты меню -->
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    <!-- Основное содержимое страницы -->
+    {% endblock %}
+</main>
+
+<footer>
+    <!-- Подвал сайта -->
+    <p>&copy; Your Website 2024</p>
+</footer>
+
+</body>
+</html>
+
